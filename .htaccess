@@ -44,11 +44,11 @@ RewriteRule ^/?appmessage/?$                                  index.php?app=home
 
 ####for api #####
 #
+RewriteRule ^/?api/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$                  index.php?app=api&mod=$1&act=$2&%{QUERY_STRING} [L]
 
 
-
-
-
+####for website #####
+RewriteRule ^/?website/?$                                  index.php?app=website&mod=Index&act=index&%{QUERY_STRING} [L]
 
 
 

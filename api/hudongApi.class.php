@@ -1,6 +1,6 @@
 <?php
 
-class hudognApi extends Api {
+class hudongApi extends Api {
 
     /**
      * 发布一条针对某一个“微博”或“评论”的评论
@@ -28,6 +28,11 @@ class hudognApi extends Api {
         $post['num'] = intval($this->data['num']);//每次获取多少条记录
         $commentlist = D('Comment','weibo')->getComment($post['weibo_id'],$post['page']);
         return $commonetlist;
+    }
+    
+    public function getWeibo() {
+        return $res = D("WeiboApi", "weibo")->public_timeline(0, 5);
+        //echo json_encode($res);
     }
 
 }

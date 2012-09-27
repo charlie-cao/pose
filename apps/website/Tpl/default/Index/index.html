@@ -1,30 +1,30 @@
-<include file="__THEME__/jsheader" />
+<include file="__THEME__/jsheader_pose" />
 
 <div class="page-header">
     <h3>
-        Pose
+        Pose Pro
     </h3>
 </div>
 <ul class="breadcrumb">
     <li class="">
-        <a href="#">
-            Playlists
+        <a href="/">
+            Index
         </a>
     </li>
     <span class="divider">
         /
     </span>
     <li class="">
-        <a href="#">
-            Office
+        <a href="/pose">
+            Pose
         </a>
     </li>
     <span class="divider">
         /
     </span>
     <li class="">
-        <a href="#">
-            Rick Astley
+        <a href="/pose/website/">
+            website
         </a>
     </li>
 </ul>
@@ -42,6 +42,20 @@
     <div class="span1">
     </div>
     <div class="span6">
+        <div id="weibo_list_div">
+
+            <ul id="weibo_list">
+                {{#items}}
+                {{#first}}
+                <li><strong>{{name}}</strong></li>
+                {{/first}}
+                {{#link}}
+                <li><a href="{{url}}">{{name}}</a></li>
+                {{/link}}
+                {{/items}}
+            </ul>
+        </div>
+
     </div>
     <div class="span1">
     </div>
@@ -65,7 +79,21 @@
     </div>
 </div>
 <hr>
-
+<script>
+    $(function(){
+        var url = 'http://localhost/pose/api/hudong/getWeibo?oauth_token=e92a2c17752211d5798fe8e49a236d5d&oauth_token_secret=66f4b4512204530703e82827a4a218ca';
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function(res){
+                var htmlstring  = Mustache.to_html($("#weibo_list_div").html(), res);
+                $("#weibo_list_div").html(htmlstring);
+            }
+        });
+        
+    });
+</script>
 
 
 
