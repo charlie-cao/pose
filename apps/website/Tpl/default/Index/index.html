@@ -42,18 +42,9 @@
     <div class="span1">
     </div>
     <div class="span6">
-        <div id="weibo_list_div">
+        <div id="weibo_div">
 
-            <ul id="weibo_list">
-                {{#items}}
-                {{#first}}
-                <li><strong>{{name}}</strong></li>
-                {{/first}}
-                {{#link}}
-                <li><a href="{{url}}">{{name}}</a></li>
-                {{/link}}
-                {{/items}}
-            </ul>
+
         </div>
 
     </div>
@@ -72,6 +63,10 @@
     <div class="span1">
     </div>
     <div class="span6">
+        <div id="commentlist_div">
+
+
+        </div>
     </div>
     <div class="span1">
     </div>
@@ -81,14 +76,59 @@
 <hr>
 <script>
     $(function(){
-        var url = 'http://localhost/pose/api/hudong/getWeibo?oauth_token=e92a2c17752211d5798fe8e49a236d5d&oauth_token_secret=66f4b4512204530703e82827a4a218ca';
+        
+        
+        
+        var url = 'http://localhost/pose/api/weibo/getWeiboDetail?id=3&oauth_token=e92a2c17752211d5798fe8e49a236d5d&oauth_token_secret=66f4b4512204530703e82827a4a218ca';
         $.ajax({
             type: "GET",
             url: url,
             dataType: "json",
             success: function(res){
-                var htmlstring  = Mustache.to_html($("#weibo_list_div").html(), res);
-                $("#weibo_list_div").html(htmlstring);
+                
+                var weibo = $("#weibo_div");
+                var myli = $("<div>");
+                var userdiv = $("<div>");
+                var imagediv = $("<div>");
+                var image = $("<img>");
+                    
+                if(res.type_data){
+                    image.attr("src",res.type_data.picurl);
+                        
+                    image.appendTo(imagediv);
+                }
+                    
+                imagediv.appendTo(myli);
+                myli.appendTo(weibo);
+                    
+            }
+        });
+        
+        var url = 'http://localhost/pose/api/weibo/getCommentList?id=3&oauth_token=e92a2c17752211d5798fe8e49a236d5d&oauth_token_secret=66f4b4512204530703e82827a4a218ca';
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function(res){
+                if(parseInt(res.count) > 0){
+                    $.each(res.data,function(i,n){
+                        var weibo = $("#commentlist_div");
+                        var myli = $("<div>");
+                        var userdiv = $("<div>");
+                        var comment = $("<div>");
+                        var image = $("<img>");
+                    
+                        
+                        comment.html(n.content);
+                        
+                    
+                        comment.appendTo(myli);
+                        myli.appendTo(weibo);
+                    });
+                }
+                
+                    
+                    
             }
         });
         

@@ -30,9 +30,6 @@ class hudongApi extends Api {
         return $commonetlist;
     }
     
-    public function getWeibo() {
-        return $res = D("WeiboApi", "weibo")->public_timeline(0, 5);
-        //echo json_encode($res);
-    }
+    
 
 }
