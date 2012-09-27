@@ -15,24 +15,12 @@ class weiboApi extends Api {
         $res = D("Comment", "weibo")->getComment($id, $page * 10);
         return $res;
     }
+    
+    public function getFavoriteList(){
+        return $res = D("Favorite", "weibo")->getList(1,0,10);
+    }
 
     ///////////
-    public function weibo_tpl() {
-        $string = '<li>
-                    {{weibo_id}}
-                    {{content}}
-                    {{#type_data}}
-
-                    {{#thumbmiddleurl}}
-                    <img src="{{thumbmiddleurl}}" />
-                    {{/thumbmiddleurl}}
-                    {{^thumbmiddleurl}}
-                    No repos :(
-                    {{/thumbmiddleurl}}
-
-                    {{/type_data}}
-                </li>';
-        return $string;
-    }
+   
 
 }
