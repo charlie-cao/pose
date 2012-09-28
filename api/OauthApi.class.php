@@ -175,6 +175,7 @@ class OauthApi extends Api {
      * 
      */
     function login() {
+        $data = array();
         if ($_REQUEST['user'] && $_REQUEST['passwd']) {
             // 修改通过用户名和密码获得 Token
             $password = $_REQUEST['passwd'];
@@ -196,17 +197,28 @@ class OauthApi extends Api {
             $user = M('user')->where($map)->field('uid')->find();
             if ($user) {
                 if ($login = M('login')->where("uid=" . $user['uid'] . " AND type='location'")->find()) {
-                    $data['oauth_token'] = $login['oauth_token'];
-                    $data['oauth_token_secret'] = $login['oauth_token_secret'];
-                    $data['uid'] = $user['uid'];
+                    $res['oauth_token'] = $login['oauth_token'];
+                    $res['oauth_token_secret'] = $login['oauth_token_secret'];
+                    $res['uid'] = $user['uid'];
                 } else {
-                    $data['oauth_token'] = getOAuthToken($user['uid']);
-                    $data['oauth_token_secret'] = getOAuthTokenSecret();
-                    $data['uid'] = $user['uid'];
+                    $res['oauth_token'] = getOAuthToken($user['uid']);
+                    $res['oauth_token_secret'] = getOAuthTokenSecret();
+                    $res['uid'] = $user['uid'];
                     $savedata['type'] = 'location';
-                    $savedata = array_merge($savedata, $data);
+                    $savedata = array_merge($savedata, $res);
                     M('login')->add($savedata);
                 }
+
+                if (!$res) {
+                    $res = array();
+                }
+
+                $data['result'] = $res;
+                $data['numfound'] = 1;
+                $data['lastrow'] = 0;
+
+
+
                 return $data;
             } else {
                 $this->verifyError();

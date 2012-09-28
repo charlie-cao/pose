@@ -2,18 +2,28 @@
 
 class WeiboApi extends Api {
 
-    public function getWeiboDetail() {
+    public function one() {
         $data = array();
         $id = intval($this->data['id']);
         $res = D("Weibo", "weibo")->getOneApi(3);
-        $data['res'] = $res;
+        $data['result'] = $res;
+        $data['numfound'] = 1;
+        $data['lastrow'] = 0;
+        return $data;
+        //echo json_encode($res);
+    }
+    public function all() {
+        $data = array();
+        $id = intval($this->data['id']);
+        $res = D("Weibo", "weibo")->getOneApi(3);
+        $data['result'] = $res;
         $data['numfound'] = 1;
         $data['lastrow'] = 0;
         return $data;
         //echo json_encode($res);
     }
 
-    public function getCommentList() {
+    public function comment() {
         $data = array();
         $id = intval($this->data['id']);
         $page = intval($this->data['lastRow']);
@@ -24,24 +34,24 @@ class WeiboApi extends Api {
             $rs = array();
         }
         
-        $data['res'] = $rs;
+        $data['result'] = $rs;
         $data['numfound'] = intval($res['totalRows']);
         $data['lastrow'] = $page +1;
         return $data;
     }
 
-    public function getFavoriteList() {
+    public function favorite() {
         $data = array();
         $id = intval($this->data['id']);
         $page = intval($this->data['lastRow']);
         $res = D("Favorite", "weibo")->getList(1, 0, 10);
         //$res = D("Comment", "weibo")->getComment($id, $page * 10);
-        $rs = $res;
-        if(!$rs){
-            $rs = array();
+        
+        if(!$res){
+            $res = array();
         }
         
-        $data['res'] = $rs;
+        $data['result'] = $res;
         $data['numfound'] = intval($res['totalRows']);
         $data['lastrow'] = $page +1;
         return $data;
