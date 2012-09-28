@@ -1,6 +1,6 @@
 <?php
 
-class weiboApi extends Api {
+class WeiboApi extends Api {
 
     public function getWeiboDetail() {
         $data = array();
@@ -34,6 +34,16 @@ class weiboApi extends Api {
         $data = array();
         $id = intval($this->data['id']);
         $page = intval($this->data['lastRow']);
-        return $res = D("Favorite", "weibo")->getList(1, 0, 10);
+        $res = D("Favorite", "weibo")->getList(1, 0, 10);
+        //$res = D("Comment", "weibo")->getComment($id, $page * 10);
+        $rs = $res;
+        if(!$rs){
+            $rs = array();
+        }
+        
+        $data['res'] = $rs;
+        $data['numfound'] = intval($res['totalRows']);
+        $data['lastrow'] = $page +1;
+        return $data;
     }
 }
