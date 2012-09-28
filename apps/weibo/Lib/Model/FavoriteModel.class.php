@@ -29,6 +29,9 @@ class FavoriteModel extends Model
         }
         return $list;
     }
+
+    
+    
     //收藏微博
     function favWeibo( $id ,$uid ){
     	$data['uid']    = $uid;
