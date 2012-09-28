@@ -48,7 +48,7 @@ RewriteRule ^/?api/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$                  index.php?a
 
 
 ####for website #####
-RewriteRule ^/?website/?$                                  index.php?app=website&mod=Index&act=index&%{QUERY_STRING} [L]
+RewriteRule ^/?website/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$                                  index.php?app=website&mod=$1&act=$2&%{QUERY_STRING} [L]
 
 
 
