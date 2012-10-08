@@ -714,7 +714,7 @@ class App {//类定义开始
 
         $res = array();
 
-        if ($data["res"]) {
+        if ($data["result"]) {
             if ($data["numfound"] > 0) {
                 $res ['res'] = '200';
             } else {

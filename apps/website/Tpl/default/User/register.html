@@ -1,0 +1,54 @@
+<include file="__THEME__/jsheader_pose" />
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+					<h5 style="padding-left: 10px;">
+						<i class=" icon-circle-arrow-left"></i>
+					</h5>
+				</div>
+				<div class="span8" style="text-align: center;">
+					<h4>注册</h4>
+				</div>
+				<div class="span2">
+
+					<a href="{:U('website/User/registerinfo')}"
+						class="btn btn-info btn-mini">完成</a>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<form>
+		<legend>Legend</legend>
+
+		<div>
+			<input type="text" class="input-large btn-block" placeholder="请输入邀请码">
+		</div>
+		<div style="padding-top: 80px;">
+			<h6>还没有邀请码？</h6>
+			<a href="{:U('website/User/getinvcode')}"
+				class="btn btn-info btn-large btn-block">获得邀请码</a>
+		</div>
+	</form>
+</div>
+
+<div class="navbar navbar-fixed-bottom" style="display: none">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid" style="text-align: center;">
+				<div class="span6">
+					<h5>注册</h5>
+				</div>
+				<div class="span6">
+					<h5>注册</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="__THEME__/footer" />

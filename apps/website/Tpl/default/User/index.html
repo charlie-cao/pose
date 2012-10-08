@@ -1,0 +1,62 @@
+<include file="__THEME__/jsheader_pose" />
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span1">
+					<h5 style="padding-left: 10px;">
+						<i class=" icon-circle-arrow-left"></i>
+					</h5>
+				</div>
+				<div class="span10" style="text-align: center;">
+					<h4>登录</h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid">
+	<form action="{:U('website/Brand/index')}" method="POST">
+		<legend>Legend</legend>
+		<legend>
+			<button type="submit" class="btn btn-danger btn-large btn-block">新浪微博账号登录</button>
+		</legend>
+		<label>使用找找账户登录</label>
+		<div>
+			<input type="text" class="input-large btn-block" placeholder="邮箱">
+		</div>
+		<div>
+			<input type="text" class="input-large btn-block" placeholder="密码">
+		</div>
+		<div>
+			<button type="submit" class="btn btn-info btn-large btn-block">登录</button>
+		</div>
+		<div>
+			<h6>
+				<a href="{:U('website/User/findpassword')}">忘记密码?</a>
+			</h6>
+		</div>
+		<div>
+			<h6>
+				第一次使用，没有账号？<a href="{:U('website/User/register')}"
+					class="btn btn-info btn-mini">注册</a>
+			</h6>
+		</div>
+	</form>
+</div>
+
+<div class="navbar navbar-fixed-bottom" style="display: none">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid" style="text-align: center;">
+				<div class="span6">
+					<h5>注册</h5>
+				</div>
+				<div class="span6">
+					<h5>注册</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="__THEME__/footer" />

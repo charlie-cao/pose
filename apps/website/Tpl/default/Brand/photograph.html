@@ -1,0 +1,75 @@
+<include file="__THEME__/jsheader_pose" />
+<style>
+#content li {
+	padding-bottom: 4px;
+}
+
+body {
+	background-color: #eee
+}
+
+.r {
+	background-color: #fff;
+	-webkit-box-shadow: 0 0 10px #ccc;
+	-moz-box-shadow: 0 0 10px #ccc;
+	padding: 4px;
+	margin-bottom: 8px;
+}
+
+.n {
+	padding-right: 10px;
+	padding-left: 10px
+}
+
+#userlist li {
+	float: left;
+	margin-right: 4px;
+}
+
+#comment li {
+	background-color: #EEE;
+	padding: 4px;
+	margin: 4px;
+}
+</style>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span1">
+					<h5 style="padding-left: 10px;">
+						<i class="icon-remove-sign"></i>
+					</h5>
+				</div>
+				<div class="span10" style="text-align: center;">
+					<h4>拍照</h4>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="container-fluid n">
+
+</div>
+
+<div class="navbar navbar-fixed-bottom">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+		<div class="row-fluid">
+            <div class="span4">
+             <button type="submit" class="btn">相册</button>
+            </div>
+            <div class="span4" style="text-align: center;">
+					<button type="submit" class="btn"
+						onclick="location.href='{:U('website/Brand/addtag')}'">拍照</button>
+				</div>
+            <div class="span4">
+            &nbsp;
+            </div>
+            </div>
+
+		</div>
+	</div>
+</div>
+<include file="__THEME__/footer" />

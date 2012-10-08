@@ -43,14 +43,11 @@ RewriteRule ^/?notification/?$                                index.php?app=home
 RewriteRule ^/?appmessage/?$                                  index.php?app=home&mod=Message&act=appmessage&%{QUERY_STRING} [L]
 
 ####for api #####
-#
-RewriteRule ^/?api/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$                  index.php?app=api&mod=$1&act=$2&%{QUERY_STRING} [L]
+RewriteRule ^/?api/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?$           index.php?app=api&mod=$1&act=$2&%{QUERY_STRING} [L]
 
 
 ####for website #####
-RewriteRule ^/?website/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$                                  index.php?app=website&mod=$1&act=$2&%{QUERY_STRING} [L]
-
-
+RewriteRule ^/?website/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$       index.php?app=website&mod=$1&act=$2&%{QUERY_STRING} [L]
 
 # 微博广场
 RewriteRule ^/?square/?$                                      index.php?app=home&mod=Square&act=index&%{QUERY_STRING} [L]

@@ -9,6 +9,12 @@ class IndexAction extends Action {
         $this->assign($data);
         $this->display();
     }
+    
+    public function findpassword(){
+    	$data = array();
+    	$this->assign($data);
+    	$this->display();
+    }
 
    
 

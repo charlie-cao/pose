@@ -176,6 +176,7 @@ class OauthApi extends Api {
      */
     function login() {
         $data = array();
+        $res = array();
         if ($_REQUEST['user'] && $_REQUEST['passwd']) {
             // 修改通过用户名和密码获得 Token
             $password = $_REQUEST['passwd'];
@@ -216,22 +217,51 @@ class OauthApi extends Api {
                 $data['result'] = $res;
                 $data['numfound'] = 1;
                 $data['lastrow'] = 0;
-
-
-
                 return $data;
             } else {
+                $res['status'] = "failed";
+                $res['message'] = "Can not verify login info";
+                if (!$res) {
+                    $res = array();
+                }
+                
+
+                $data['result'] = $res;
+                $data['numfound'] = 0;
+                $data['lastrow'] = 0;
+
+                return $data;
                 $this->verifyError();
             }
         } else {
+            if (!$res) {
+                $res = array();
+            }
+
+            $data['result'] = $res;
+            $data['numfound'] = 0;
+            $data['lastrow'] = 0;
+
+            return $data;
             $this->verifyError();
         }
+        if (!$res) {
+            $res = array();
+        }
+
+        $data['result'] = $res;
+        $data['numfound'] = 0;
+        $data['lastrow'] = 0;
+
+        return $data;
     }
 
     /**
      * 帐号注销
      * */
     function logout() {
+        $data = array();
+        $res = array();
         $user['uid'] = $_REQUEST['uid'];
         $logout = M('login')->where("uid=" . $user['uid'] . " AND type='location'")->delete();
         return $logout;
@@ -242,6 +272,11 @@ class OauthApi extends Api {
      * 通过邮件返回用户密码
      */
     function findpassword() {
+        $email = intval($_POST['email']);
+        
+    }
+    
+    function invite(){
         
     }
 

@@ -1,0 +1,117 @@
+<include file="__THEME__/jsheader_pose" />
+<style>
+#content li {
+	padding-bottom: 4px;
+}
+
+body {
+	background-color: #eee
+}
+
+.r {
+	background-color: #fff;
+	-webkit-box-shadow: 0 0 10px #ccc;
+	-moz-box-shadow: 0 0 10px #ccc;
+	padding: 4px;
+	margin-bottom: 8px;
+}
+
+.n {
+	padding-right: 10px;
+	padding-left: 10px
+}
+
+#userlist li {
+	float: left;
+	margin-right: 4px;
+}
+
+#comment li {
+	background-color: #EEE;
+	padding: 4px;
+	margin: 4px;
+}
+</style>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span4">
+					<button class="btn">重拍</button>
+				</div>
+				<div class="span4" style="text-align: center;">
+					<h4>完善信息</h4>
+				</div>
+				<div class="span4" style="text-align: right;">
+					<button class="btn"
+						onclick="location.href='{:U('website/Brand/index')}'">发布</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid n">
+	<legend>Legend</legend>
+
+
+	<div class="row-fluid r">
+
+		<div>
+			<ul id="content" class="unstyled">
+				<li style="float: left"><img height="180" width="180"
+					src="__THEME__/images/mm.jpeg" /></li>
+				<li>
+					<button onclick="location.href='{:U('website/Brand/branddetail')}'">帆布鞋</button>
+					<br />
+					<button onclick="location.href='{:U('website/Brand/branddetail')}'">凡客</button>
+					<br />
+					<button onclick="location.href='{:U('website/Brand/branddetail')}'">裤子</button>
+					<br />
+					<button onclick="location.href='{:U('website/Brand/branddetail')}'">优衣库</button>
+				</li>
+				<li style="clear: both"><textarea class="input-large" rows="3"
+						placeholder="说点什么，例如：我很喜欢。。。。"></textarea></li>
+				<li>
+					<button class="btn"
+						onclick="location.href='{:U('website/Brand/location')}'">在哪里</button>
+					<button class="btn"
+						onclick="location.href='{:U('website/User/friend')}'">提及某人</button>
+					<button class="btn">表情</button>
+					<button class="btn"
+						onclick="location.href='{:U('website/User/topic')}'">话题</button>
+				</li>
+				<li>分享到新浪微博 <input type="checkbox" id="inlineCheckbox1"
+					value="option1"></li>
+				<li>仅互相关注的人可见 <input type="checkbox" id="inlineCheckbox1"
+					value="option1"></li>
+
+
+
+
+			</ul>
+		</div>
+	</div>
+
+
+
+
+</div>
+
+<div class="navbar navbar-fixed-bottom">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<div class="row-fluid" style="text-align: center;">
+				<div class="span4">
+					<h5>发现</h5>
+				</div>
+				<div class="span4">
+					<h5>拍照</h5>
+				</div>
+				<div class="span4">
+					<h5>我的</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="__THEME__/footer" />

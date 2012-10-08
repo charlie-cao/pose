@@ -2,9 +2,14 @@
 
 //微博Api接口
 class StatusesApi extends Api {
+    
+    function a(){
+        return "";
+    }
 
     //获取最新更新的公共微博消息
     function public_timeline() {
+        var_dump($this);
         return D('WeiboApi', 'weibo')->public_timeline($this->since_id, $this->max_id, $this->count, $this->page);
     }
 
