@@ -6,9 +6,9 @@ session_start();
 $name = 'verify';
 $font = '../addons/libs/WaterMark/msyh.ttf';
 if (file_exists($font) && isset($_GET['type']) && $_GET['type'] == 'chinese') {
-    Image::GBVerify(3, 'png', 140, 50, $font, $name);
+    Image::GBVerify(3, 'gif', 140, 50, $font, $name);
 } else {
-    Image::buildImageVerify(5, 5, 'png', 50, 25, $name);
+    Image::buildImageVerify(5, 5, 'gif', 50, 25, $name);
 }
 
 class Image {//类定义开始
@@ -61,17 +61,17 @@ class Image {//类定义开始
      * @return string
       +----------------------------------------------------------
      */
-    static function buildImageVerify($length = 4, $mode = 1, $type = 'gif', $width = 48, $height = 22, $verifyName = 'verify') {
+    static function buildImageVerify($length = 4, $mode = 1, $type = 'jpg', $width = 48, $height = 22, $verifyName = 'verify') {
         //tsload(ADDON_PATH.'/liberary/String.class.php');
         $randval = String::rand_string($length, $mode);
         //转换成大写字母.
         $_SESSION[$verifyName] = md5(strtoupper($randval));
         $width = ($length * 10 + 10) > $width ? $length * 10 + 10 : $width;
-        
+
         if ($type != 'gif' && function_exists('imagecreatetruecolor')) {
-            $im = @imagecreatetruecolor($width, $height);
+            $im = imagecreatetruecolor($width, $height);
         } else {
-            $im = @imagecreate($width, $height);
+            $im = imagecreate($width, $height);
         }
         $r = Array(225, 255, 255, 223);
         $g = Array(225, 236, 237, 255);
@@ -82,8 +82,8 @@ class Image {//类定义开始
         $borderColor = imagecolorallocate($im, 100, 100, 100);                    //边框色
         $pointColor = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255));                 //点颜色
 
-        @imagefilledrectangle($im, 0, 0, $width - 1, $height - 1, $backColor);
-        @imagerectangle($im, 0, 0, $width - 1, $height - 1, $borderColor);
+        imagefilledrectangle($im, 0, 0, $width - 1, $height - 1, $backColor);
+        imagerectangle($im, 0, 0, $width - 1, $height - 1, $borderColor);
         $stringColor = imagecolorallocate($im, mt_rand(0, 200), mt_rand(0, 120), mt_rand(0, 120));
         // 干扰
         for ($i = 0; $i < 10; $i++) {
@@ -97,13 +97,13 @@ class Image {//类定义开始
         for ($i = 0; $i < $length; $i++) {
             imagestring($im, 5, $i * 10 + 5, mt_rand(1, 8), $randval{$i}, $stringColor);
         }
-        
+
 //        @imagestring($im, 5, 5, 3, $randval, $stringColor);
         Image::output($im, $type);
     }
 
     // 中文验证码
-    static function GBVerify($length = 4, $type = 'png', $width = 120, $height = 30, $fontface = 'simhei.ttf', $verifyName = 'verify') {
+    static function GBVerify($length = 4, $type = 'jpg', $width = 120, $height = 30, $fontface = 'simhei.ttf', $verifyName = 'verify') {
         //tsload(ADDON_PATH.'/liberary/String.class.php');
         $code = String::rand_string($length, 4);
         $width = ($length * 45) > $width ? $length * 45 : $width;
@@ -133,9 +133,10 @@ class Image {//类定义开始
         Image::output($im, $type);
     }
 
-    static function output($im, $type = 'png', $filename = '') {
+    static function output($im, $type = 'jpg', $filename = '') {
         header("Content-type: image/" . $type);
         $ImageFun = 'image' . $type;
+        
         if (empty($filename)) {
             $ImageFun($im);
         } else {

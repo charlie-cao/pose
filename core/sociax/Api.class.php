@@ -36,8 +36,9 @@ abstract class Api extends Think {
     public function __construct($location = false) {
         $this->_module_white_list = array('Oauth', 'Sitelist');
         if ($location == false) {
-            if (!$this->mid && !in_array(MODULE_NAME, $this->_module_white_list))
+            if (!$this->mid && !in_array(MODULE_NAME, $this->_module_white_list)) {
                 $this->verifyUser();
+            }
         } else {
             $this->mid = $_SESSION['mid'];
         }
@@ -45,7 +46,7 @@ abstract class Api extends Think {
         $this->since_id = $_REQUEST['since_id'] ? intval($_REQUEST['since_id']) : '';
         $this->max_id = $_REQUEST['max_id'] ? intval($_REQUEST['max_id']) : '';
         $this->page = $_REQUEST['page'] ? intval($_REQUEST['page']) : 1;
-        $this->count = $_REQUEST['count'] ? intval($_REQUEST['count']) : 20;
+        $this->count = $_REQUEST['count'] ? intval($_REQUEST['count']) : 10;
         $this->user_id = $_REQUEST['user_id'] ? intval($_REQUEST['user_id']) : 0;
         $this->user_name = $_REQUEST['user_name'] ? h($_REQUEST['user_name']) : '';
         $this->id = $_REQUEST['id'] ? intval($_REQUEST['id']) : 0;
@@ -55,10 +56,11 @@ abstract class Api extends Think {
     }
 
     //认证用户
-    private function verifyUser() {
+    public function verifyUser() {
         $verifycode['oauth_token'] = h($_REQUEST['oauth_token']);
         $verifycode['oauth_token_secret'] = h($_REQUEST['oauth_token_secret']);
         $verifycode['type'] = 'location';
+        //var_dump($verifycode);
         if ($login = M('login')->where($verifycode)->field('uid,oauth_token,oauth_token_secret')->find()) {
             $this->mid = $login['uid'];
             $_SESSION['mid'] = $this->mid;
@@ -71,12 +73,25 @@ abstract class Api extends Think {
     private function buildToken($uid) {
         
     }
+    
 
     //认证失败
     protected function verifyError() {
+        $data = array();
+        $res = array();
+        $res ['res'] = "390";
         $message['message'] = '认证失败';
         $message['code'] = '00001';
-        exit(json_encode($message));
+        $data['result'] = $message;
+        $data['numfound'] = 0;
+        $data['lastrow'] = 0;
+        $data['qtime'] = 0;
+        $res ['model'] = '00';
+        $res ['data'] = $data;
+        $res ['md5'] = md5(json_encode($data));
+
+        echo json_encode($res);
+        exit();
     }
 
     public function data($data) {

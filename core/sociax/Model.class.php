@@ -90,6 +90,7 @@ class Model extends Think {
         } elseif (empty($this->name)) {
             $this->name = $this->getModelName();
         }
+        
         // 数据库初始化操作
         // 获取数据库操作对象
         // 当前模型有独立的数据库连接信息
@@ -313,8 +314,10 @@ class Model extends Think {
                     }
                 }
             }
+            
         }
         $this->_before_write($data);
+       
         return $data;
     }
 

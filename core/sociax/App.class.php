@@ -60,6 +60,8 @@ class App {//类定义开始
             define('ACTION_NAME', App::getAction()); // Action操作
 
 
+
+
             
 // If already slashed, strip.
         if (get_magic_quotes_gpc()) {//get_magic_quotes_gpc取得 PHP 环境变量 magic_quotes_gpc 的值
@@ -702,7 +704,7 @@ class App {//类定义开始
         $module = new $class;
         $action = ACTION_NAME;
         //执行当前操作
-        $data= array();
+        $data = array();
         $starttime = microtime(true);
         $data = call_user_func(array(&$module, $action));
         $format = (in_array($_REQUEST['format'], array('xml', 'json', 'php', 'test')) ) ? $_REQUEST['format'] : 'json';
@@ -728,13 +730,19 @@ class App {//类定义开始
         $res ['data'] = $data;
         $res ['md5'] = md5(json_encode($data));
 
-        
+
 
 
 
 
         if ($format == 'json') {
-            exit(json_encode($res));
+            $callback = isset($_REQUEST ['callback']) ? trim($_REQUEST ['callback']) : false;
+            if ($callback) {
+                echo $callback . '(' . json_encode($res) . ')';
+                exit();
+            } else {
+                exit(json_encode($res));
+            }
         } elseif ($format == 'xml') {
             
         } elseif ($format == 'php') {
@@ -803,6 +811,8 @@ class App {//类定义开始
             define('MODULE_NAME', App::getModule()); // Module名称
         if (!defined('ACTION_NAME'))
             define('ACTION_NAME', App::getAction()); // Action操作
+
+
 
 
 

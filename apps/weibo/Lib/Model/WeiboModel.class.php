@@ -265,12 +265,15 @@ class WeiboModel extends Model {
                 }
             }
         }
+        
+        $value['favorite_count'] = D('Favorite', 'weibo')->getFavoriteCountforWeibo($id);
 
         $value['transpond_data'] = ($value['transpond_id'] > 0) ? $this->getOneApi($value['transpond_id']) : '';
         $value['timestamp'] = $value['ctime'];
         $value['ctime'] = date('Y-m-d H:i', $value['ctime']);
         $value['from_data'] = unserialize($value['from_data']);
         $value['content'] = keyWordFilter($value['content']);
+        
         if (isset($value['favorited'])) {
             $value['favorited'] = intval($value['favorited']);
         } else {

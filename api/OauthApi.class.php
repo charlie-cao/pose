@@ -46,7 +46,8 @@ class OauthApi extends Api {
 
     //用户注册
     function register() {
-
+        $data1 = array();
+        $res = array();
 
         $uid = intval($_POST['invite_uid']);
 // 		// 验证码
@@ -104,22 +105,24 @@ class OauthApi extends Api {
 // 				$need_email_activate = intval(model('Xdata')->get('register:register_email_activate'));
 // 				var_dump($_REQUEST);
 // 				exit;
-        //$_POST = $_GET;
+        //$_POST = $_REQUEST;
         // 注册
-        $data['email'] = $_POST['email'];
-        $data['password'] = md5($_POST['password']);
-        $data['uname'] = t($_POST['nickname']);
+        $data['email'] = $_REQUEST['email'];
+        $data['password'] = md5($_REQUEST['password']);
+        $data['uname'] = t($_REQUEST['nickname']);
         $data['ctime'] = time();
         //$data['is_active'] = $need_email_activate ? 0 : 1;
         $data['is_active'] = 1;
         $data['register_ip'] = get_client_ip();
         $data['login_ip'] = get_client_ip();
-        if (!($uid = D('User', 'home')->add($data))) {
+        if (!($uid = D('User', "home")->add($data))) {
 //					return 1;
-            $msg = false;
+            $status = false;
+            $msg = "Failed for duplications!";
         } else {
 //					return 0;
-            $msg = true;
+            $status = true;
+            $msg = "Success to add new User!";
         }
 // 					$this->error(L('reg_filed_retry'));
 //				Addons::hook('public_after_doregister',$uid);
@@ -142,7 +145,15 @@ class OauthApi extends Api {
             'dateline' => time(),
         );
         M('myop_userlog')->add($user_log);
-        return $msg;
+
+
+        $res = array("uid" => $uid, 'status' => $status, "msg" => $msg);
+
+
+        $data1['result'] = $res;
+        $data1['numfound'] = 1;
+        $data1['lastrow'] = 0;
+        return $data1;
 
         // 将邀请码设置已用
 // 				model('Invite')->setInviteCodeUsed($invite_code);
@@ -192,6 +203,7 @@ class OauthApi extends Api {
             }
             $user = D('User', 'home')->getUserByIdentifier($identifier, $identifier_type);
 
+
             $map['uid'] = $user['uid'];
             $map['password'] = md5($_REQUEST['passwd']);
 
@@ -224,7 +236,7 @@ class OauthApi extends Api {
                 if (!$res) {
                     $res = array();
                 }
-                
+
 
                 $data['result'] = $res;
                 $data['numfound'] = 0;
@@ -262,9 +274,28 @@ class OauthApi extends Api {
     function logout() {
         $data = array();
         $res = array();
-        $user['uid'] = $_REQUEST['uid'];
-        $logout = M('login')->where("uid=" . $user['uid'] . " AND type='location'")->delete();
-        return $logout;
+
+        
+        $this -> verifyUser();
+//        var_dump($this);
+//        var_dump($_SESSION);
+//        
+//        die();
+
+        $logout = M('login')->where("uid=" . $this->mid . " AND type='location'")->delete();
+
+        if ($logout) {
+            $res = array("status" => TRUE, "msg" => "logout success!");
+        } else {
+            $res = array("status" => FALSE, "msg" => "there is none login info!");
+        }
+        $data['result'] = $res;
+        $data['numfound'] = 0;
+        $data['lastrow'] = 0;
+
+        unset($_SESSION['mid']);
+
+        return $data;
     }
 
     /**
@@ -273,10 +304,9 @@ class OauthApi extends Api {
      */
     function findpassword() {
         $email = intval($_POST['email']);
-        
     }
-    
-    function invite(){
+
+    function invite() {
         
     }
 
